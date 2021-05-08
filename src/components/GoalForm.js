@@ -5,7 +5,7 @@ render() {
     return (
         <div>
 <form onSubmit={this.props.listSubmit}>
-<input type="text" name="name" placeholder="name"></input>
+<input type="text" name="name" placeholder="new goal"></input>
 <br></br>
 <input type="text" name="start_date" placeholder="start date"></input>
 <br></br>

@@ -17,7 +17,7 @@ state = {
 }
 
 componentDidMount () {
-  console.log('test')
+
   fetch("http://localhost:3000/trips")
   .then(resp => resp.json())
   .then(data => this.setState({trips: data}))
@@ -44,37 +44,48 @@ componentDidMount () {
 
 listSubmit = (e) => {
   e.preventDefault()
-  let newName = e.target[0].value
-  let newStartDate = e.target[1].value
-  let newCompletionDate = e.target[2].value
-  // console.log(newName, newStartDate, newCompletionDate)
 
 let newGoal = {
-  "name": newName, 
-  "start_date": newStartDate, 
-  "completion_date": newCompletionDate
+  "name": e.target[0].value,
+  "start_date": e.target[1].value,
+  "completion_date": e.target[2].value
 }
-// this.Newfunction(newGoal)
+console.log(newGoal)
+fetch("http://localhost:3000/goals/", {
+  method: "POST", 
+  headers: {
+    'content-type': 'application/json',
+    'accept':'application/json'
+  },
+  body: JSON.stringify(newGoal)
+})
+.then(resp => resp.json())
+.then(newGoal => this.setState({
+  goals: [...this.state.goals, newGoal]
+}))
 }
+
+
+
 
 
   render(){
 
     return(
       <div>
-        <h4>My Trips</h4>
+        <h5>My Trips</h5>
         <Trips trips={this.state.trips}/>
         <hr></hr>
-        <h4>Weekly Goals</h4>
+        <h5>Weekly Goals</h5>
         <GoalForm listSubmit={this.listSubmit}/>
         <Goals goals={this.state.goals} />
         <hr></hr>
-        <h4>To do List</h4>
+        <h5>To do List</h5>
         <List list={this.state.list}/>
         <hr></hr>
-        <h4>Finances</h4>
+        <h5>Finances</h5>
         <Finances finances={this.state.finances}/>
-        <h4>Calendar</h4>
+        <h5>Calendar</h5>
         <Calendar appointments={this.state.appointments}/>
       </div>
     )

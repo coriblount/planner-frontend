@@ -26,6 +26,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+      <a href = '/'><h5>Log out</h5></a>
     </div>
   );
 }
